@@ -1,6 +1,8 @@
+import json
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from translate import Translator
+from django.views.decorators.csrf import csrf_exempt
 
 from . import forms
 
@@ -9,16 +11,11 @@ def index(request):
     return render(request, "translate_text/index.html")
 
 
+@csrf_exempt
 def translation(request):
     if request.method == 'POST':
-        form = forms.TranslateForm(request.POST)
-        if form.is_valid():
-            input_text = form.cleaned_data['input_text']
-            translator = Translator(from_lang='english', to_lang='swahili')
-            translation = translator.translate(input_text)
-            # return HttpResponse(translation)
-            context = {"translated": translation}
-            return render(request, "translate_text/index.html", context)
-        else:
-            context = {"translated": "Could not send your request"}
-            return render(request, "translate_text/index.html", context)
+        input_text = json.loads(request.body)
+        translator = Translator(from_lang=input_text['from_lang'], to_lang=input_text['to_lang'])
+        translation = translator.translate(input_text['input_text'])
+        data = {"data": translation}
+        return JsonResponse(data)
