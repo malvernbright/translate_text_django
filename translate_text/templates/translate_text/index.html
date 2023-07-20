@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="card mx-4 my-4">
+      <div class="card-header">
+        <center>
+          <h1 class="text-capitalize text-info-emphasis">Translate</h1>
+        </center>
+      </div>
+      <div class="card-body">
+        <form action="{% url 'translate_text:translate' %}" method="post">
+          {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-12">
+                    <textarea name="input_text" id="input_text" placeholder="Text to translate..." value="" class="form-control py-2 my-2">
+                    </textarea>
+                </div>
+                <div class="col md-4">
+                    <input type="submit" value="Translate" class="btn btn-warning py-2 my-2">
+                </div>
+            </div>
+        </form>
+      </div>
+      {% if translated %}
+      <div class="container alert alert-dismissible alert-info">
+        {{ translated }}
+    </div>
+    {% endif %}
+    </div>
+  </div>
+{% endblock %}
