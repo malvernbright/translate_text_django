@@ -1,10 +1,9 @@
 import json
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from translate import Translator
 from django.views.decorators.csrf import csrf_exempt
 
-from . import forms
 
 
 def index(request):
