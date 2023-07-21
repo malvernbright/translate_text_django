@@ -2,3 +2,4 @@ repo.txt
 *.pyc
 .env
 env
+*.sqlite3
