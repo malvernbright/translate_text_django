@@ -31,7 +31,7 @@ DEBUG = env('DEBUG')
 if DEBUG:
     print('DEBUG MODE')
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "translate-text-y9oh.onrender.com"]
 ALLOW_ROBOTS = False
 
 # Application definition
@@ -214,3 +214,5 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'vnd.api+json'
 }
+
+CSRF_TRUSTED_ORIGINS = ['https://translate-text-y9oh.onrender.com/']
